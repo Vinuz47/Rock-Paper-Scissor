@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissor</title>
+</head>
+<body>
+<h3>Rock Paper Scissors</h3>
+
+<button onclick="playGame('rock')">Rock</button>
+<button onclick="playGame('paper')">Paper</button>
+<button onclick="playGame('scissors')">Scissors</button>
+<button onclick="reset()">Reset Score</button>
+
+<div>
+  <h4 id="summery">Match Summery: Wins - 0 | Losses - 0 | Ties - 0 </h4>
+</div>
+
+<script>
+  
+    let result = "";
+    // computer move-------------
+    // 1 - Paper
+    // 2 - Scissor
+    // 3 - Rock
+
+    //score storing
+    let score = JSON.parse(localStorage.getItem('score')) || {
+        wins: 0,
+        losses: 0,
+        ties: 0
+      };
+
+    /*
+    if(!score){ // !score == (score ===null)
+      score = {
+        wins: 0,
+        losses: 0,
+        ties: 0
+      }
+    }
+      */
+    
+  
+    
+
+  //generate computer move
+  function pickComputerMove(){
+    const randomNumber = (Math.random() * (3 - 1) + 1).toFixed(0);//generane random number in range of (1 to 3) eg: 1,2,3
+    return randomNumber;
+  }
+
+  function reset(){
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0
+    localStorage.removeItem('score');
+    document.getElementById("summery").innerHTML = `<h4>Match Summery: Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+  }
+
+
+
+  function playGame(playerMove){
+    //getting th computer move
+    const computerMove = pickComputerMove();
+    //rock function
+    if(playerMove === 'rock'){
+      if(computerMove == 1){
+        ++score.losses;
+        alert('Loose\nComputer got Paper');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+      else if(computerMove == 2){
+        ++score.wins;
+        alert('Won\nComputer got Scissor');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+      else if(computerMove == 3){
+        ++score.ties;
+        alert('Tie\nComputer got Rock');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+    }
+    //paper function
+    else if(playerMove === 'paper'){
+      if(computerMove==1){
+        ++score.ties;
+        alert('Tie\nComputer got Paper');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+      else if(computerMove == 2){
+        ++score.losses;
+        alert('Loose\nComputer got Scissor');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+      else if(computerMove == 3){
+        ++score.wins;
+        alert('Won\nComputer got Rock');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+    }
+    //scissor function
+    else if(playerMove === 'scissors'){
+      if(computerMove==1){
+        ++score.wins;
+        alert('Won\nComputer got Paper');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+      else if(computerMove == 2){
+        ++score.ties;
+        alert('Tie\nComputer got Scissor');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+      else if(computerMove == 3){
+        ++score.losses;
+        alert('Loose\nComputer got Rock');
+        document.getElementById("summery").innerHTML = `<h4>Match Summery:
+          Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
+      }
+    }
+    else{
+      alert("Unexpected Error!");
+    }
+
+    localStorage.setItem('score', JSON.stringify(score)); //set loacal storage to items.
+  }
+
+</script>
+  
+</body>
+</html>
