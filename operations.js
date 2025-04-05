@@ -42,7 +42,7 @@
   }
 
   //update score function
-  function updateScore(){
+  function   updateScore(){
     document.getElementById("summery").innerHTML = `<h4>Match Summery: Wins - ${score.wins} | Losses - ${score.losses} | Ties - ${score.ties}</h4>`;
   }
 
